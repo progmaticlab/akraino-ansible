@@ -1,0 +1,19 @@
+# Deleting Akraino EC2 instances and cleanup inventory and dynamic variables
+
+- hosts: rc_host
+  vars:
+    akraino_group: rc_host
+  roles:
+  - roles/akraino_terminate_ec2_instance
+
+- hosts: treasuremap_host
+  vars:
+    akraino_group: treasuremap_host
+  roles:
+  - roles/akraino_terminate_ec2_instance
+
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+  roles:
+  - roles/akraino_cleanup_ec2
