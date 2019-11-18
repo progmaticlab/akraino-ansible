@@ -1,0 +1,9 @@
+---
+# Deploying Akraino TF Blueprint (on Regional Controller)
+- hosts: rc_host
+  vars:
+  become: yes
+  roles:
+  - check_if_rc_running
+  - { role: roles/akraino_deploy_blueprint, when: "container_counter.stdout == '10'" } 
+

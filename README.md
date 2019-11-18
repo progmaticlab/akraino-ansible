@@ -2,15 +2,16 @@
 ===
 
 Requirements:
-  ansible >= 2.5.1
-  python3
-  boto (2.49.0)
-  boto3 (1.4.2)
-  botocore (1.8.48)
+  * Ubuntu 18.04
+  * ansible 2.5.1
+  * python3
+  * boto (2.49.0)
+  * boto3 (1.4.2)
+  * botocore (1.8.48)
 
-aws credentials in ~/.aws/credentials
+AWS authorization must be setup on the host. (check aws credentials in ~/.aws/credentials)
 
-File  ~/.boto should contain:
+File  ~/.boto must contain:
 ~~~
 [Boto]
 use_endpoint_heuristics = True
@@ -19,15 +20,32 @@ use_endpoint_heuristics = True
 
 
 
-### deploying keypair, security group and AWS EC2 spot instance and updating inventory and group_vars/all
+### Creating keypair, security group and AWS EC2 spot instances and updating inventory and group_vars/all
 ~~~
-ansible-playbook -i inventory/akraino akraino-playbook-step01.yaml
+cd akraino-ansible
+ansible-playbook 00-create-environment.yaml
 ~~~
 
-### deploying Regional Controller and starting airship-in-a-bootle deployment
+After this step 2 AWS instance are created and available by ssh with the identity *akraino-aws-private-key.pem*
+Files inventory/akraino and group_vars/all are updated with correct ip addresses. 
+
+### deploying Regional Controller 
 ~~~
-ansible-playbook -i inventory/akraino akraino-playbook-step02.yaml
+ansible-playbook -i inventory/akraino 01-deploy-regional-controller.yaml
 ~~~
+
+After this step Regional controller is available by https. You can see ip address of RC in file inventory/akraino or group_vars/all.
+Also you can login on Regional COntroller by ssh with the command ssh -i akraino-aws-private-key.pem ubuntu@<ip_address>
+
+
+### deploying TF blueprint on Regional Controller
+~~~
+ansible-playbook -i inventory/akraino 02-deploy-tf-blueprint.yaml
+~~~
+After this step TF yamls are generated and EdgeSite, Blueptint and POD are created on Regional Controller.
+Process of deployment usually takes 5-6 hours.
+
+
 
 ### Cleanup the environment
 ~~~
