@@ -14,5 +14,5 @@ treasuremap_repo_url: https://github.com/progmaticlab/treasuremap.git
 treasuremap_repo_branch: master
 
 #Dynamic variables
-rc_host: 35.180.10.168
-treasuremap_host: 15.236.206.68
+rc_host: 
+treasuremap_host: 
