@@ -1,9 +1,0 @@
----
-# Deploying Akraino Regional Controller on existing EC2 host
-- hosts: rc_host
-  vars:
-  become: yes
-  roles:
-  - roles/install_docker_ce
-  - roles/akraino_deploy_rc
-

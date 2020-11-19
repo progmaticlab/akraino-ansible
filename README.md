@@ -29,20 +29,15 @@ ansible-playbook 00-create-environment.yaml
 After this step 2 AWS instance are created and available by ssh with the identity *akraino-aws-private-key.pem*
 Files inventory/akraino and group_vars/all are updated with correct ip addresses. 
 
-### deploying Regional Controller 
+### deploying Regional Controller with TF blueprint
 ~~~
-ansible-playbook -i inventory/akraino 01-deploy-regional-controller.yaml
+ansible-playbook -i inventory/akraino 02-deploy-tf-blueprint.yaml
 ~~~
 
 After this step Regional controller is available by https. You can see ip address of RC in file inventory/akraino or group_vars/all.
 Also you can login on Regional COntroller by ssh with the command ssh -i akraino-aws-private-key.pem ubuntu@<ip_address>
 
-
-### deploying TF blueprint on Regional Controller
-~~~
-ansible-playbook -i inventory/akraino 02-deploy-tf-blueprint.yaml
-~~~
-After this step TF yamls are generated and EdgeSite, Blueptint and POD are created on Regional Controller.
+TF yamls are generated and EdgeSite, Blueptint and POD are created on Regional Controller.
 Process of deployment usually takes 5-6 hours.
 
 

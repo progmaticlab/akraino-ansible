@@ -1,7 +1,0 @@
----
-- name: "Check if RC docker containers are running"
-  shell: "docker ps | grep -c Up"
-  register: container_counter
-- debug:
-    var: container_counter.stdout
-

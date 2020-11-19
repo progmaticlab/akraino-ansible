@@ -3,17 +3,25 @@
 - hosts: rc_host
   vars:
     akraino_group: rc_host
+    project_variables: "vars/akraino.yaml"
+  vars_files:
+    - "{{ project_variables }}"
   roles:
   - roles/akraino_terminate_ec2_instance
 
 - hosts: treasuremap_host
   vars:
     akraino_group: treasuremap_host
+    project_variables: "vars/akraino.yaml"
+  vars_files:
+    - "{{ project_variables }}"
   roles:
   - roles/akraino_terminate_ec2_instance
 
 - hosts: localhost
   vars:
-    ansible_python_interpreter: "/usr/bin/python3"
+    project_variables: "vars/akraino.yaml"
+  vars_files:
+    - "{{ project_variables }}"
   roles:
   - roles/akraino_cleanup_ec2

@@ -52,6 +52,25 @@
      vpc_subnet_id: "{{ vpc_subnet_id }}"
      assign_public_ip: yes
   register: ec2
+  when: spot_price is defined
+
+- name: Create AWS on-demand instance "{{ akraino_group }}"
+  hosts: localhost
+  gather_facts: False
+  ec2:
+     key_name: "{{ project_name }}_key"
+     group: "{{ project_name }}_security_group"
+     instance_type: "{{ instance_type }}"
+     count: 1
+     image: "{{ ami }}"
+     wait: true
+     volumes:
+     -  { device_name: '/dev/sda1', volume_type: 'gp2', volume_size: "{{ volume_size }}", delete_on_termination: yes }
+     region: "{{ region }}"
+     vpc_subnet_id: "{{ vpc_subnet_id }}"
+     assign_public_ip: yes
+  register: ec2
+  when: spot_price is undefined
 
 - name: Add the newly created EC2 instance(s) to host group
   local_action: 
@@ -65,7 +84,7 @@
 - name: Add the newly created EC2 instance(s) to group_vars
   local_action:
     module: lineinfile
-    path: "group_vars/all"
+    path: "{{ project_variables }}"
     regexp: "{{ akraino_group }}"
     line: "{{ akraino_group }}{{': '}}{{ item.public_ip }}"
   with_items: "{{ ec2.instances }}"

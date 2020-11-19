@@ -1,12 +1,15 @@
 ---
 # Creating Akraino Regional Controller EC2 instances and updating inventory and group_vars
+# On-demand instances are using if spot_price is undefined 
 - hosts: localhost
   vars: 
-    ansible_python_interpreter: "/usr/bin/python3"
     instance_type: t2.medium
     volume_size: 8
     akraino_group: rc_host
-    spot_price: 0.3
+    #spot_price: 0.3
+    project_variables: "vars/akraino.yaml"
+  vars_files:
+    - "{{ project_variables }}"
   connection: local
   roles:
     - roles/akraino_deploy_ec2_instance
@@ -14,11 +17,13 @@
 # Creating Treasuremap EC2 host
 - hosts: localhost
   vars: 
-    ansible_python_interpreter: "/usr/bin/python3"
-    instance_type: m5.4xlarge
+    instance_type: m5.8xlarge
     volume_size: 300
     akraino_group: treasuremap_host
-    spot_price: 0.5
+    #spot_price: 0.5
+    project_variables: "vars/akraino.yaml"
+  vars_files:
+    - "{{ project_variables }}"
   connection: local
   roles:
     - roles/akraino_deploy_ec2_instance

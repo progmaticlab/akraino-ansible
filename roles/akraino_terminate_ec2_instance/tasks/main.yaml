@@ -22,7 +22,7 @@
 - name: Remove the EC2 instance "{{ inventory_hostname }}" from "{{ project_variables }}"
   local_action:
     module: lineinfile
-    path: "group_vars/all"
+    path: "{{ project_variables }}"
     regexp: "{{ akraino_group }}"
     line: "{{ akraino_group }}{{ ': ' }}"
 

@@ -1,5 +1,7 @@
 #Do not remove empty sections rc_host and treasuremap_host. They are updated dynamically
 [rc_host]
+35.180.10.168 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=akraino-aws-private-key.pem ansible_python_interpreter=/usr/bin/python3
 
 
 [treasuremap_host]
+15.236.206.68 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=akraino-aws-private-key.pem ansible_python_interpreter=/usr/bin/python3
