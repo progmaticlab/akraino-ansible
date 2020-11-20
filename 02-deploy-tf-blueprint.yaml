@@ -1,6 +1,8 @@
 ---
 # Deploying Akraino Regional Controller on existing EC2 host
 - hosts: rc_host
+  env:
+    ANSIBLE_HOST_KEY_CHECKING: false
   vars:
     project_variables: "vars/akraino.yaml"
   vars_files:
@@ -13,6 +15,8 @@
 # Waiting for airship deployment is finished and download the log
 
 - hosts: treasuremap_host
+  env:
+    ANSIBLE_HOST_KEY_CHECKING: false
   vars:
     akraino_group: treasuremap_host
     project_variables: "vars/akraino.yaml"
