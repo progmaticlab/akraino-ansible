@@ -1,8 +1,6 @@
 # Deleting Akraino EC2 instances and cleanup inventory and dynamic variables
 
 - hosts: rc_host
-  env:
-    ANSIBLE_HOST_KEY_CHECKING: false
   vars:
     akraino_group: rc_host
     project_variables: "vars/akraino.yaml"
@@ -12,8 +10,6 @@
   - roles/akraino_terminate_ec2_instance
 
 - hosts: treasuremap_host
-  env:
-    ANSIBLE_HOST_KEY_CHECKING: false
   vars:
     akraino_group: treasuremap_host
     project_variables: "vars/akraino.yaml"
